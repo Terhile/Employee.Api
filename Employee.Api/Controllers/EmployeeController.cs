@@ -22,27 +22,30 @@ namespace Employee.Api.Controllers
         private readonly IActivityLogger _logger;
         private readonly IMessageProducer _kafkaService;
         private readonly IValidator<RequestModel> _requestvalidator;
-        public EmployeeController(IEmployeeService employeeService, IActivityLogger logger, IMessageProducer  kafkaService, IValidator<RequestModel> requestValidator)
+        private readonly IValidator<EmployeeModel> _employeevalidator;
+        public EmployeeController(IEmployeeService employeeService, IActivityLogger logger, IMessageProducer kafkaService, IValidator<RequestModel> requestValidator, IValidator<EmployeeModel> employeevalidator)
         {
             _employeeService = employeeService;
+
             _logger = logger;
             _kafkaService = kafkaService;
             _requestvalidator = requestValidator;
+            _employeevalidator = employeevalidator;
         }
 
         [HttpPost("employee_info")]
-        public async Task<IActionResult> employeeInfo( RequestModel model)
+        public async Task<IActionResult> employeeInfo(RequestModel model)
         {
             var validationResult = _requestvalidator.Validate(model);
             if (!validationResult.IsValid)
-                return BadRequest(error: validationResult.Errors.ToArray());
+                return BadRequest(error: validationResult.ToString(";"));
             ResponseModel response = new ResponseModel();
             try
             {
                 _logger.LogMessage("getting employee information ");
-                var result =  _employeeService.Employees(model);
+                var result = _employeeService.Employees(model);
 
-                return Ok(new ResponseModel { Data = result});
+                return Ok(new ResponseModel { Data = result });
             }
             catch (Exception ex)
             {
@@ -55,21 +58,27 @@ namespace Employee.Api.Controllers
 
 
         [HttpPost("publish")]
-        public async Task<IActionResult> PublishEmployeeInfo([FromBody] EmployeeModel model)
+        public  IActionResult PublishEmployeeInfo([FromBody] EmployeeModel model)
         {
+           
             try
             {
+                var validationResult = _employeevalidator.Validate(model);
+
+                if (!validationResult.IsValid)
+                    return BadRequest(error: validationResult.ToString(";"));
                 _logger.LogMessage("request recived");
                 _kafkaService.WriteMessage(model);
 
-               
+
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex);
             }
-            return Ok();
 
+            return Ok();
+            
         }
     }
 }

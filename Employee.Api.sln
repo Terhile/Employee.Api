@@ -5,9 +5,7 @@ VisualStudioVersion = 16.0.31402.337
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Employee.Api", "Employee.Api\Employee.Api.csproj", "{7713EB92-DD6C-4037-9CC6-02288C4658DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Employee.Api.Tests", "Employee.Api.Tests\Employee.Api.Tests.csproj", "{0F2BF67A-DADC-4AF6-96CE-152F848E4CE6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Employee.Api.Persistence", "Employee.Api.Persistence\Employee.Api.Persistence.csproj", "{C627B383-1E41-4BFB-BF1B-35368D53E47B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Employee.Api.Persistence", "Employee.Api.Persistence\Employee.Api.Persistence.csproj", "{C627B383-1E41-4BFB-BF1B-35368D53E47B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +17,6 @@ Global
 		{7713EB92-DD6C-4037-9CC6-02288C4658DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7713EB92-DD6C-4037-9CC6-02288C4658DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7713EB92-DD6C-4037-9CC6-02288C4658DB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0F2BF67A-DADC-4AF6-96CE-152F848E4CE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F2BF67A-DADC-4AF6-96CE-152F848E4CE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0F2BF67A-DADC-4AF6-96CE-152F848E4CE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F2BF67A-DADC-4AF6-96CE-152F848E4CE6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C627B383-1E41-4BFB-BF1B-35368D53E47B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C627B383-1E41-4BFB-BF1B-35368D53E47B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C627B383-1E41-4BFB-BF1B-35368D53E47B}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -33,13 +33,13 @@ namespace Employee.Api.Services.Kafka
         }
         public void Flush(TimeSpan timeout)
            => this.producer.Flush(timeout);
-        public void WriteMessage(EmployeeModel employee)
+        public  void WriteMessage(EmployeeModel employee)
         {
 
             try
             {
                 var empInfo = JsonConvert.SerializeObject(employee);  //should use schema registry here to handle schema validation or  serialization/deserialization of data model  
-                producer.Produce(_kafkaSettings.TopicName, new Message<string, string> { Key = employee.EmployeeNumber, Value = empInfo }, deliveryReportHandler);
+                 producer.Produce(_kafkaSettings.TopicName, new Message<string, string> { Key = employee.EmployeeNumber, Value = empInfo }, deliveryReportHandler);
 
             }
             catch (Exception ex)

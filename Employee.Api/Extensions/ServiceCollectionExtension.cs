@@ -12,6 +12,7 @@ using Employee.Api.Services.Emp;
 using FluentValidation;
 using Employee.Api.Domain.Request;
 using Employee.Api.Validators;
+using Employee.Api.Domain.Models;
 
 namespace Employee.Api.Extensions
 {
@@ -26,6 +27,7 @@ namespace Employee.Api.Extensions
             services.AddSingleton<IEmployeeService, EmployeeService>();
             services.AddSingleton<IActivityLogger, ActivityLogger>();
             services.AddSingleton<IValidator<RequestModel>, RequestModelValidator>();
+            services.AddSingleton<IValidator<EmployeeModel>, EmployeeModelValidator>();
             services.AddSingleton<IDBContext, DBContext>();
             services.AddHostedService<ConsumerClient>();
 
