@@ -23,10 +23,10 @@ namespace Employee.Api.Extensions
             services.Configure<KafkaSettings>(config.GetSection("Kafka:EmployerSettings"));
             services.AddSingleton<ProducerWrapper>();
             services.AddSingleton<IMessageProducer, MessageProducer>();
-            services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddSingleton<IEmployeeService, EmployeeService>();
             services.AddSingleton<IActivityLogger, ActivityLogger>();
-            services.AddScoped<IValidator<RequestModel>, RequestModelValidator>();
-            services.AddScoped<IDBContext, DBContext>();
+            services.AddSingleton<IValidator<RequestModel>, RequestModelValidator>();
+            services.AddSingleton<IDBContext, DBContext>();
             services.AddHostedService<ConsumerClient>();
 
             return services;

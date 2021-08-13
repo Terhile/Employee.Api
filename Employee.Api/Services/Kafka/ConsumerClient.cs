@@ -1,6 +1,7 @@
 ﻿using Confluent.Kafka;
 using Employee.Api.Domain.Configurations;
 using Employee.Api.Domain.Models;
+using Employee.Api.Services.Emp;
 using Employee.Api.Services.Logger;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
@@ -16,11 +17,13 @@ namespace Employee.Api.Services.Kafka
         private readonly IActivityLogger _logger;
         private readonly KafkaSettings _kafkaSettings;
         private readonly IConsumer<string, string> kafkaConsumer;
+        private readonly IEmployeeService _employeeService;
 
-        public ConsumerClient(IActivityLogger logger, IOptions<KafkaSettings> producerSettings)
+        public ConsumerClient(IActivityLogger logger, IOptions<KafkaSettings> producerSettings, IEmployeeService employeeService)
         {
 
             _logger = logger;
+            _employeeService = employeeService;
             _kafkaSettings = producerSettings.Value;
             var conf = new ConsumerConfig
             {
@@ -51,7 +54,7 @@ namespace Employee.Api.Services.Kafka
                     var cr = this.kafkaConsumer.Consume(cancellationToken);
 
                     EmployeeModel employee = JsonConvert.DeserializeObject<EmployeeModel>(cr.Message?.Value);
-
+                    _employeeService.Save(employee);
                     _logger.LogMessage($"Employee with ID '{employee.EmployeeNumber}' read from '{cr.Topic}' at timestamp' {cr.Message.Timestamp.UtcDateTime}'");
 
                 }

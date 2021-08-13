@@ -35,13 +35,13 @@ namespace Employee.Api.Services.Emp
             return result;
         }
 
-        public async Task<int> Save(EmployeeModel employee)
+        public  int Save(EmployeeModel employee)
         {
             var query  = $"IF EXISTS(SELECT * FROM Employee WHERE EmployeeNumber = @EmployeeNumber) UPDATE Employee SET EmployeeNumber = @EmployeeNumber, EmployeeName = @EmployeeName," +
-                $" HourlyRate = @HourlyRate, TotalHours = @TotalHours, TotalPay = @pay ELSE " +
+                $" HourlyRate = @HourlyRate, TotalHours = @TotalHours, TotalPay = @TotalPay ELSE " +
                 $"INSERT INTO Employee(EmployeeNumber, EmployeeName, HourlyRate, TotalHours, TotalPay) Values(@EmployeeNumber,@EmployeeName, @HourlyRate, @TotalHours, @TotalPay); ";
 
-            var affectedRows = await _context.ExecuteAsync(query, new { EmployeeNumber = employee.EmployeeNumber, EmployeeName = employee.EmployeeName, HourlyRate = employee.HourlyRate, TotalHours = employee.HoursWorked, TotalPay = employee.HoursWorked*employee.HourlyRate });
+            var affectedRows =  _context.Execute(query, new { EmployeeNumber = employee.EmployeeNumber, EmployeeName = employee.EmployeeName, HourlyRate = employee.HourlyRate, TotalHours = employee.HoursWorked, TotalPay = employee.HoursWorked*employee.HourlyRate });
 
             return affectedRows;
         }

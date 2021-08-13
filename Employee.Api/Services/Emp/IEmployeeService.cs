@@ -10,7 +10,7 @@ namespace Employee.Api.Services.Emp
 {
     public interface IEmployeeService
     {
-        Task<int> Save(EmployeeModel employee);
+        int Save(EmployeeModel employee);
         List<EmployeeModel> Employees(RequestModel request);
     }
 }
